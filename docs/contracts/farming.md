@@ -1,6 +1,6 @@
 # Farming
 
-Apex has separate farming paths for Classic LP tokens and CL position NFTs. Farming is separate from ApexVault.
+Apex has separate farming paths for Classic LP tokens and CL position NFTs.
 
 ## Classic Farm
 
@@ -66,13 +66,3 @@ const { calldata, value } = CLMasterChef.mintAndStakeCallParameters(
 ```
 
 Track the NFT owner, staked owner, liquidity, tick range, fee tier, pending rewards, and collectable fee state.
-
-## State Boundaries
-
-| Area | Do not mix with |
-| --- | --- |
-| Classic farms | CL NFT position state |
-| CL farms | Classic LP token balances |
-| ApexVault | farm deposits and LP staking |
-
-ApexVault has its own veNFT reward flow and should be modeled as a separate product surface.

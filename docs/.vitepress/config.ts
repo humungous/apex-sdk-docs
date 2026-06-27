@@ -26,8 +26,13 @@ export default defineConfig({
         text: 'Contracts',
         items: [
           { text: 'DEX Structure', link: '/contracts/overview' },
-          { text: 'Classic Pools', link: '/contracts/classic-pools' },
-          { text: 'CL Pools', link: '/contracts/cl-pools' },
+          {
+            text: 'Pools',
+            items: [
+              { text: 'Classic Pools', link: '/contracts/classic-pools' },
+              { text: 'CL Pools', link: '/contracts/cl-pools' }
+            ]
+          },
           { text: 'Farming', link: '/contracts/farming' },
           { text: 'ApexVault', link: '/contracts/apex-vault' }
         ]
@@ -37,7 +42,8 @@ export default defineConfig({
         items: [
           { text: 'Quoting', link: '/examples/quoting' },
           { text: 'Swaps', link: '/examples/swaps' },
-          { text: 'Farming and ApexVault', link: '/examples/farming-vault' }
+          { text: 'Farming', link: '/examples/farming' },
+          { text: 'ApexVault', link: '/examples/apex-vault' }
         ]
       },
       {

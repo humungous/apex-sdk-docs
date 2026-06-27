@@ -43,6 +43,8 @@ await walletClient.sendTransaction({
 
 Pass the returned `calldata` and `value` to the app transaction layer.
 
+If `value` is nonzero, the SDK appends `refundETH()` to the multicall automatically so unused native ETH returns to `msg.sender`.
+
 ## Classic route segment
 
 ```ts
@@ -83,4 +85,4 @@ Router helpers support cleanup payments such as:
 - unwrap WETH
 - sweep leftover tokens
 
-Use cleanup calls when the route may leave dust in the router. Avoid custom multicalls unless the flow has a test covering refund behavior.
+Native ETH refund is automatic for payable `SmartRouter` calls built by the SDK. Token sweeps and WETH unwraps require explicit payment entries because the SDK cannot infer the intended token, recipient, or minimum amount for every route.

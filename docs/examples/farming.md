@@ -1,4 +1,4 @@
-# Farming and ApexVault Examples
+# Farming Examples
 
 ## Classic Farm
 
@@ -24,7 +24,7 @@ const exit = ClassicChef.withdrawCallParameters({
 
 ## CL Farm
 
-CL farms stake position NFTs. `CLMasterChef` builds the periphery calldata for minting, staking, increasing, decreasing, collecting, and unstaking CL positions.
+CL farms stake position NFTs. `CLMasterChef` builds calldata for minting, staking, increasing, decreasing, collecting, and unstaking CL positions.
 
 ```ts
 import { CLMasterChef, CLFeeAmount } from '@apex_labs/sdk'
@@ -51,35 +51,9 @@ const { calldata, value } = CLMasterChef.mintAndStakeCallParameters(
 )
 ```
 
-## ApexVault User Config
-
-ApexVault reward config weights must add up to `10_000` basis points for each reward token.
-
-```ts
-import {
-  ApexVault,
-  validateApexVaultUserConfig,
-} from '@apex_labs/sdk'
-
-const config = {
-  rewardConfigs: [
-    {
-      rewardToken,
-      bps: 3_000,
-    },
-  ],
-  compoundBps: 7_000,
-}
-
-validateApexVaultUserConfig(config)
-
-const { calldata } = ApexVault.setUserConfigCallParameters(tokenId, config)
-```
-
 ## Required State
 
 | Product area | State |
 | --- | --- |
 | Classic farm | pair address, pid, LP balance, staked balance, pending rewards |
 | CL farm | NFT token id, staked owner, liquidity, tick range, fee tier, pending rewards |
-| ApexVault | veNFT token id, lock expiry, configured reward tokens, claim bps, compound bps |

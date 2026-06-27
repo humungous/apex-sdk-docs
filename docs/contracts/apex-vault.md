@@ -1,6 +1,6 @@
 # ApexVault
 
-ApexVault manages veNFT reward configuration, claiming, compounding, and lock extension. It is separate from Classic and CL farming.
+ApexVault manages veNFT reward configuration, claiming, compounding, and lock extension.
 
 ## Contracts
 
@@ -47,9 +47,8 @@ validateApexVaultUserConfig(config)
 const { calldata } = ApexVault.setUserConfigCallParameters(tokenId, config)
 ```
 
-## Integration Rules
+## Integration
 
 - Keep ApexVault state in a dedicated route or tab.
 - Validate user config before opening the wallet.
 - Display reward-token bps and compound bps separately.
-- Do not present ApexVault positions as Classic LP or CL NFT farm deposits.

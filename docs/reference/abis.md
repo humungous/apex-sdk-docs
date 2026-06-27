@@ -58,7 +58,7 @@ const [slot0, liquidity] = await Promise.all([
 Install a fixed SDK version in apps:
 
 ```bash
-npm install @apex_labs/sdk@0.1.1
+npm install @apex_labs/sdk@0.1.2
 ```
 
 Update deliberately when contracts or periphery calldata changes.
