@@ -19,9 +19,9 @@ const pair = computeClassicPoolAddress({
 Use this after reading pair reserves, decimals, and fee.
 
 ```ts
-import { quoteApexClassicExactInput } from '@apex_labs/sdk'
+import { quoteClassicExactInput } from '@apex_labs/sdk'
 
-const amountOut = quoteApexClassicExactInput({
+const amountOut = quoteClassicExactInput({
   amountIn,
   tokenIn: tokenA.address,
   token0,
@@ -38,14 +38,14 @@ const amountOut = quoteApexClassicExactInput({
 ## CL pool address
 
 ```ts
-import { ApexFeeAmount, computeCLPoolAddress } from '@apex_labs/sdk'
+import { CLFeeAmount, computeCLPoolAddress } from '@apex_labs/sdk'
 import { apex } from './config'
 
 const poolAddress = computeCLPoolAddress({
   config: apex,
   tokenA,
   tokenB,
-  fee: ApexFeeAmount.FEE_0_30,
+  fee: CLFeeAmount.FEE_0_30,
 })
 ```
 
@@ -55,8 +55,8 @@ Mixed routes support Classic and CL hops in one path.
 
 ```ts
 import {
-  ApexFeeAmount,
-  encodeApexMixedRouteToPancakeQuoteParams,
+  CLFeeAmount,
+  encodeMixedRouteToPancakeQuoteParams,
   mixedQuoterAbi,
 } from '@apex_labs/sdk'
 
@@ -65,7 +65,7 @@ const hops = [
     kind: 'CL',
     tokenIn: tokenA.address,
     tokenOut: tokenB.address,
-    fee: ApexFeeAmount.FEE_0_30,
+    fee: CLFeeAmount.FEE_0_30,
   },
   {
     kind: 'CLASSIC_STABLE',
@@ -74,7 +74,7 @@ const hops = [
   },
 ] as const
 
-const { path, flags } = encodeApexMixedRouteToPancakeQuoteParams(hops)
+const { path, flags } = encodeMixedRouteToPancakeQuoteParams(hops)
 
 const quote = await publicClient.readContract({
   address: apex.mixedQuoter,
@@ -84,11 +84,10 @@ const quote = await publicClient.readContract({
 })
 ```
 
-## When to use what
+## Quote Sources
 
 | Route | Quote with |
 | --- | --- |
-| Classic only | local reserves + `quoteApexClassicExactInput` |
+| Classic only | local reserves + `quoteClassicExactInput` |
 | CL only | `QuoterV2`, Pancake SDK route math, or indexed data |
 | Classic + CL | `MixedQuoter` |
-

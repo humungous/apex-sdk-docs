@@ -47,7 +47,7 @@ Check:
 Make sure the app imports from the package root:
 
 ```ts
-import { ApexSmartRouter } from '@apex_labs/sdk'
+import { SmartRouter } from '@apex_labs/sdk'
 ```
 
 Do not import from internal package paths. They are not part of the public API.

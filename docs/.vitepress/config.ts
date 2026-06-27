@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Apex SDK',
-  description: 'Frontend integration docs for the Apex DEX SDK',
+  description: 'Integration reference for the Apex DEX SDK',
   base: '/apex-sdk-docs/',
   cleanUrls: true,
   themeConfig: {
@@ -25,7 +25,11 @@ export default defineConfig({
       {
         text: 'Contracts',
         items: [
-          { text: 'DEX Structure', link: '/contracts/overview' }
+          { text: 'DEX Structure', link: '/contracts/overview' },
+          { text: 'Classic Pools', link: '/contracts/classic-pools' },
+          { text: 'CL Pools', link: '/contracts/cl-pools' },
+          { text: 'Farming', link: '/contracts/farming' },
+          { text: 'ApexVault', link: '/contracts/apex-vault' }
         ]
       },
       {
@@ -33,7 +37,7 @@ export default defineConfig({
         items: [
           { text: 'Quoting', link: '/examples/quoting' },
           { text: 'Swaps', link: '/examples/swaps' },
-          { text: 'Farming and Vault', link: '/examples/farming-vault' }
+          { text: 'Farming and ApexVault', link: '/examples/farming-vault' }
         ]
       },
       {
@@ -52,4 +56,3 @@ export default defineConfig({
     }
   }
 })
-

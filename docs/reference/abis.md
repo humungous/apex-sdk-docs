@@ -1,6 +1,6 @@
-# ABI Exports
+# ABI Reference
 
-The SDK exports compiled ABIs so frontends do not need to copy JSON artifacts.
+The SDK exports compiled Apex ABIs from the package root.
 
 ```ts
 import {
@@ -28,7 +28,7 @@ import {
 } from '@apex_labs/sdk'
 ```
 
-## Naming rule
+## Naming
 
 ABI names mirror contract names:
 
@@ -53,13 +53,12 @@ const [slot0, liquidity] = await Promise.all([
 ])
 ```
 
-## Keep ABIs versioned
+## Versioning
 
 Install a fixed SDK version in apps:
 
 ```bash
-npm install @apex_labs/sdk@0.1.0
+npm install @apex_labs/sdk@0.1.1
 ```
 
 Update deliberately when contracts or periphery calldata changes.
-

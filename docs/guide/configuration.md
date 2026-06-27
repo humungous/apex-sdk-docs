@@ -1,6 +1,6 @@
 # Configuration
 
-Every frontend should keep one config object per chain.
+Keep one Apex deployment config per chain.
 
 ```ts
 import type { ApexDeploymentConfig } from '@apex_labs/sdk'
@@ -30,7 +30,7 @@ export const apex: ApexDeploymentConfig = {
 | `chainId` | Token objects, route construction, and client checks |
 | `clFactory` | Finding and validating CL pools |
 | `clPoolDeployer` | Deterministic CL pool address calculation |
-| `clSwapRouter` | Low-level CL-only router address; most user swap flows should use `smartRouter` |
+| `clSwapRouter` | Low-level CL-only router address for specialized CL flows |
 | `clQuoter` | CL quote reads |
 | `clNonfungiblePositionManager` | CL LP NFT mint/increase/decrease/collect actions |
 | `clMasterChef` | Staked CL position rewards |
@@ -42,7 +42,7 @@ export const apex: ApexDeploymentConfig = {
 | `classicChef` | Classic LP staking rewards |
 | `weth` | ETH wrapping/unwrapping cleanup |
 
-## Practical advice
+## Deployment Discipline
 
 - Do not hardcode config inside components.
 - Keep config in one module like `src/config/apex.ts`.

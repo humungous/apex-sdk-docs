@@ -1,6 +1,6 @@
 # DEX Contract Structure
 
-This is the short version your frontend team needs.
+Apex combines Classic AMM pools, concentrated-liquidity pools, unified swap routing, farm contracts, and ApexVault reward management.
 
 ## Control plane
 
@@ -9,10 +9,10 @@ This is the short version your frontend team needs.
 | `ApexController` | Admin/controller for farms, emissions, fee routing, and protocol-level settings |
 | `EmissionCenter` | Vesting-wallet wrapper that can release reward tokens to the controller when emissions need funding |
 | `ApexToken` | Apex reward/governance token |
-| `VeApexToken` | Vote-escrow lock NFT used by the vault/reward system |
-| `ApexVault` | veNFT vault that manages reward configs, claiming, compounding, and lock extension |
+| `VeApexToken` | Vote-escrow lock NFT used by ApexVault |
+| `ApexVault` | Manages veNFT reward configs, claiming, compounding, and lock extension |
 
-Frontend takeaway: most users do not call `ApexController` directly. It is mainly useful for admin pages, farm indexes, and reading global emission state.
+`ApexController` is not part of normal trade execution. It is relevant for admin surfaces, farm indexes, and global emission state.
 
 ## Classic AMM
 
@@ -22,7 +22,7 @@ Frontend takeaway: most users do not call `ApexController` directly. It is mainl
 | `ClassicPool` | Pair contract for volatile and stable swaps |
 | `ClassicChef` | LP staking and reward distribution for Classic pairs |
 
-Frontend takeaway: use Classic helpers for pair address calculation and local quote math. Use `ClassicChef` ABI for staking UI.
+See [Classic Pools](./classic-pools.md) for pair discovery, local quote inputs, and Classic LP integration.
 
 ## Concentrated liquidity
 
@@ -35,7 +35,7 @@ Frontend takeaway: use Classic helpers for pair address calculation and local qu
 | `LmPoolDeployer` | Deploys `LmPool` contracts |
 | `CLMasterChef` | Staked CL NFT rewards |
 
-Frontend takeaway: CL liquidity is NFT-based. Use the SDK's re-exported Pancake v3 classes for pool, route, position, and swap math.
+See [CL Pools](./cl-pools.md) for deterministic pool addresses, CL position data, and Pancake v3-compatible SDK usage.
 
 ## Periphery
 
@@ -49,7 +49,7 @@ Frontend takeaway: CL liquidity is NFT-based. Use the SDK's re-exported Pancake 
 | `TickLens` | CL tick data reads |
 | `InterfaceMulticall` | Batched reads |
 
-Frontend takeaway: user-facing swap UI should default to `SmartRouter` and the SDK's `ApexSmartRouter` calldata helpers. Treat `SwapRouter` as a low-level CL-only periphery contract for specialized flows.
+User swap flows should execute through `SmartRouter` using SDK calldata helpers. `SwapRouter` is low-level CL-only periphery for specialized integrations.
 
 ## Fees
 
@@ -58,12 +58,21 @@ Frontend takeaway: user-facing swap UI should default to `SmartRouter` and the S
 | `FeeCenter` | Collects and splits protocol fees |
 | `FeeReceiver` | Per-receiver fee accounting and forwarding |
 
-Frontend takeaway: useful for fee dashboards and admin ops, not normal trading UI.
+Fee contracts are relevant for fee dashboards, accounting, and admin operations. They are not required for swap or LP user flows.
+
+## Product Areas
+
+| Area | Primary contracts | SDK surface |
+| --- | --- | --- |
+| [Classic Pools](./classic-pools.md) | `ClassicFactory`, `ClassicPool` | `computeClassicPoolAddress`, `quoteClassicExactInput`, Classic ABIs |
+| [CL Pools](./cl-pools.md) | `CLFactory`, `CLPool`, `NonfungiblePositionManager` | `computeCLPoolAddress`, Pancake v3 SDK re-exports, CL ABIs |
+| [Farming](./farming.md) | `ClassicChef`, `CLMasterChef`, `LmPool` | `ClassicChef`, `CLMasterChef` |
+| [ApexVault](./apex-vault.md) | `ApexVault`, `VeApexToken` | `ApexVault`, `validateApexVaultUserConfig` |
 
 ## How a trade moves
 
 1. UI builds a route from user input and available pools.
 2. UI quotes via local SDK math, `MixedQuoter`, `QuoterV2`, or indexed route data.
-3. UI builds execution calldata with `ApexSmartRouter`.
+3. UI builds execution calldata with `SmartRouter`.
 4. Wallet sends the transaction to `SmartRouter`.
 5. Pools update balances/liquidity; fees and rewards are accounted by the relevant pool/farm contracts.

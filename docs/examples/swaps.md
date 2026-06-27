@@ -2,17 +2,17 @@
 
 ## Mixed exact-input swap
 
-For user-facing swaps, use the `ApexSmartRouter` call-parameter helpers. They wrap the swap in a `SmartRouter.multicall` with a deadline or previous blockhash.
+Use `SmartRouter` call-parameter helpers for user swap execution. They wrap the swap in a `SmartRouter.multicall` with a deadline or previous blockhash.
 
 ```ts
-import { ApexFeeAmount, ApexSmartRouter } from '@apex_labs/sdk'
+import { CLFeeAmount, SmartRouter } from '@apex_labs/sdk'
 
 const hops = [
   {
     kind: 'CL',
     tokenIn: tokenA.address,
     tokenOut: tokenB.address,
-    fee: ApexFeeAmount.FEE_0_30,
+    fee: CLFeeAmount.FEE_0_30,
   },
   {
     kind: 'CLASSIC_VOLATILE',
@@ -21,7 +21,7 @@ const hops = [
   },
 ] as const
 
-const { calldata, value } = ApexSmartRouter.mixedExactInputCallParameters(
+const { calldata, value } = SmartRouter.mixedExactInputCallParameters(
   {
     hops,
     recipient: account,
@@ -41,12 +41,12 @@ await walletClient.sendTransaction({
 })
 ```
 
-Most apps can pass the `calldata` and `value` returned by the helper to their existing transaction layer.
+Pass the returned `calldata` and `value` to the app transaction layer.
 
 ## Classic route segment
 
 ```ts
-const { calldata } = ApexSmartRouter.classicExactInputCallParameters(
+const { calldata } = SmartRouter.classicExactInputCallParameters(
   {
     amountIn,
     amountOutMin,
@@ -62,7 +62,7 @@ const { calldata } = ApexSmartRouter.classicExactInputCallParameters(
 ## CL route segment through SmartRouter
 
 ```ts
-const { calldata } = ApexSmartRouter.exactInputCallParameters(
+const { calldata } = SmartRouter.exactInputCallParameters(
   {
     path,
     recipient: account,
@@ -77,7 +77,7 @@ const { calldata } = ApexSmartRouter.exactInputCallParameters(
 
 ## Cleanup calls
 
-The router helpers support cleanup payments such as:
+Router helpers support cleanup payments such as:
 
 - refund native ETH
 - unwrap WETH

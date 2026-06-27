@@ -1,61 +1,63 @@
-# Farming and Vault Examples
+# Farming and ApexVault Examples
 
-## Classic LP farm
+## Classic Farm
 
-Classic farms are pid-based. Read or index the pid for each pair, then build calls with `ApexClassicFarm`.
+Classic farms stake pair ERC-20 LP tokens into `ClassicChef`. Read or index the pid for each pair, then build calldata with `ClassicChef`.
 
 ```ts
-import { ApexClassicFarm } from '@apex_labs/sdk'
+import { ClassicChef } from '@apex_labs/sdk'
 
-const stake = ApexClassicFarm.depositCallParameters({
+const stake = ClassicChef.depositCallParameters({
   pid,
   amount,
 })
 
-const claim = ApexClassicFarm.harvestCallParameters({
+const claim = ClassicChef.harvestCallParameters({
   pid,
 })
 
-const exit = ApexClassicFarm.withdrawCallParameters({
+const exit = ClassicChef.withdrawCallParameters({
   pid,
   amount,
 })
 ```
 
-## CL NFT farm
+## CL Farm
 
-CL farming works with position NFTs. The SDK encodes the safe periphery paths so the UI does not assemble Chef calls by hand.
+CL farms stake position NFTs. `CLMasterChef` builds the periphery calldata for minting, staking, increasing, decreasing, collecting, and unstaking CL positions.
 
 ```ts
-import { ApexCLFarm, ApexFeeAmount } from '@apex_labs/sdk'
+import { CLMasterChef, CLFeeAmount } from '@apex_labs/sdk'
 
-const { calldata, value } = ApexCLFarm.mintAndStakeCallParameters(
+const { calldata, value } = CLMasterChef.mintAndStakeCallParameters(
   {
     token0: tokenA.address,
     token1: tokenB.address,
-    fee: ApexFeeAmount.FEE_0_30,
+    fee: CLFeeAmount.FEE_0_30,
     tickLower,
     tickUpper,
     amount0Desired,
     amount1Desired,
     amount0Min,
     amount1Min,
-    recipient: account,
+    account,
     deadline,
   },
   {
-    refundRecipient: account,
+    stakingReceiver: apex.clMasterChef,
+    nonfungiblePositionManager: apex.clNonfungiblePositionManager,
+    value,
   },
 )
 ```
 
-## Vault user config
+## ApexVault User Config
 
-Vault reward config weights must add up to `10_000` basis points.
+ApexVault reward config weights must add up to `10_000` basis points for each reward token.
 
 ```ts
 import {
-  ApexVaultPosition,
+  ApexVault,
   validateApexVaultUserConfig,
 } from '@apex_labs/sdk'
 
@@ -63,23 +65,21 @@ const config = {
   rewardConfigs: [
     {
       rewardToken,
-      compoundWeight: 7_000,
-      claimableWeight: 3_000,
+      bps: 3_000,
     },
   ],
+  compoundBps: 7_000,
 }
 
 validateApexVaultUserConfig(config)
 
-const { calldata } = ApexVaultPosition.setUserConfigCallParameters({
-  tokenId,
-  ...config,
-})
+const { calldata } = ApexVault.setUserConfigCallParameters(tokenId, config)
 ```
 
-## Common UI states
+## Required State
 
-- Classic farm: pair address, pid, LP balance, staked balance, pending reward.
-- CL farm: NFT position, staked owner, liquidity, tick range, pending reward.
-- Vault: veNFT token id, lock expiry, configured reward tokens, claimable/compound split.
-
+| Product area | State |
+| --- | --- |
+| Classic farm | pair address, pid, LP balance, staked balance, pending rewards |
+| CL farm | NFT token id, staked owner, liquidity, tick range, fee tier, pending rewards |
+| ApexVault | veNFT token id, lock expiry, configured reward tokens, claim bps, compound bps |
