@@ -1,76 +1,41 @@
 # SDK API Reference
 
-Core exports for Apex application integrations. Use TypeScript autocomplete for exact parameter types.
+The Apex SDK exports typed helpers for addresses, quoting, calldata generation, farm actions, ApexVault actions, and ABI reads/writes.
 
-## Config and constants
+## Install
+
+```bash
+npm install @apex_labs/sdk@0.2.0
+```
+
+## Reference
+
+| Area | What it covers |
+| --- | --- |
+| [Config and Types](./config-types.md) | Deployment config, shared bigint/call types |
+| [CL Pools](./cl-pools.md) | CL fee tiers, tick spacing, pool address calculation, CL pool objects |
+| [Classic Pools](./classic-pools.md) | Classic pair address calculation and local quote math |
+| [Routes and Quotes](./routes-quotes.md) | Mixed Classic/CL paths, quote path encoding, protocol fee packing |
+| [SmartRouter](./smart-router.md) | Swap calldata builders, multicall wrapping, refund and cleanup behavior |
+| [Farming](./farming.md) | ClassicChef and CLMasterChef calldata helpers |
+| [ApexVault](./apex-vault.md) | veNFT config validation and ApexVault calldata helpers |
+| [ABI Exports](./abis.md) | Contract ABI exports for reads and custom writes |
+
+## Low-level CL Math Exports
+
+The SDK also exports CL math and position-building classes. These are Apex SDK primitives; no external protocol knowledge is required to use them.
 
 | Export | Purpose |
 | --- | --- |
-| `ApexDeploymentConfig` | App-level deployment config per chain |
-| `CLFeeAmount` | Apex CL fee tiers |
-| `APEX_CL_TICK_SPACINGS` | Tick spacing per CL fee tier |
-| `APEX_CL_POOL_INIT_CODE_HASH` | Default CL init code hash |
-| `APEX_CLASSIC_PAIR_INIT_CODE_HASH` | Default Classic pair init code hash |
-| `APEX_CLASSIC_FEE_DENOMINATOR` | Classic fee denominator, `1_000_000` |
-| `APEX_CL_PROTOCOL_FEE_DENOMINATOR` | CL protocol fee denominator, `10_000` |
+| `Pool` | In-memory CL pool model built from `slot0`, liquidity, fee tier, tokens, and tick data |
+| `Route` | In-memory path of one or more CL pools |
+| `Trade` | In-memory trade model for exact-input or exact-output CL routes |
+| `Position` | In-memory CL liquidity position model for a tick range |
+| `NonfungiblePositionManager` | Low-level CL LP calldata builder for mint, increase, decrease, collect, and burn |
+| `SwapRouter` | Low-level CL-only swap calldata builder |
+| `SwapQuoter` | Low-level CL quote calldata builder |
+| `TickMath` | Tick and sqrt-price conversions |
+| `nearestUsableTick` | Rounds a tick to the nearest valid tick spacing |
+| `encodeSqrtRatioX96` | Converts token amount ratios into CL sqrt price format |
 
-## Pool helpers
-
-| Export | Purpose |
-| --- | --- |
-| `computeCLPoolAddress` | Compute deterministic CL pool address |
-| `createCLPool` | Create a Pancake-compatible `Pool` with Apex fee tiers |
-| `getCLTickSpacing` | Resolve tick spacing for an Apex fee tier |
-| `computeClassicPoolAddress` | Compute deterministic Classic pair address |
-| `quoteClassicExactInput` | Local Classic exact-input quote from reserves |
-
-## Mixed routing
-
-| Export | Purpose |
-| --- | --- |
-| `MixedRouteHop` | Route hop type for Classic/CL mixed paths |
-| `encodeMixedRouteToPath` | Encode mixed route path bytes |
-| `decodeMixedRoutePath` | Decode mixed route path bytes |
-| `encodeMixedRouteToPancakeQuoteParams` | Encode path and flags for Pancake-style mixed quote provider |
-
-## Swap calldata
-
-| Export | Purpose |
-| --- | --- |
-| `SmartRouter` | Builds SmartRouter calldata for Classic, CL, stable, and mixed swaps |
-| `SmartRouter.swapCallParameters` | Wrap custom router calls in one router multicall |
-| `SmartRouter.mixedExactInputCallParameters` | Main helper for mixed exact-input user swaps |
-| `SmartRouter.exactInputCallParameters` | CL exact-input segment |
-| `SmartRouter.classicExactInputCallParameters` | Classic volatile segment |
-| `SmartRouter.stableExactInputCallParameters` | Classic stable segment |
-
-## Farming
-
-| Export | Purpose |
-| --- | --- |
-| `ClassicChef` | Classic Chef deposit/withdraw/harvest calldata |
-| `CLMasterChef` | CL position mint/stake/increase/decrease/collect calldata |
-
-## ApexVault
-
-| Export | Purpose |
-| --- | --- |
-| `ApexVault` | ApexVault and veNFT calldata helpers |
-| `validateApexVaultUserConfig` | Validate ApexVault config weights before sending transactions |
-| `getApexVaultCompoundBucket` | Compute ApexVault compound bucket address |
-
-## Re-exported Pancake v3 SDK
-
-The package re-exports the pinned Pancake v3 SDK fork used by Apex. Common exports include:
-
-- `Pool`
-- `Route`
-- `Trade`
-- `SwapRouter` class from the pinned Pancake v3 SDK, for advanced CL-only calldata building
-- `NonfungiblePositionManager`
-- `SwapQuoter`
-- `TickMath`
-- `nearestUsableTick`
-- `encodeSqrtRatioX96`
-
-Use these for CL math and LP position building so application calculations match Apex CL contracts.
+These exports are for CL math and CL-only periphery flows. User swap execution should normally use [`SmartRouter`](./smart-router.md).

@@ -8,12 +8,26 @@ export default defineConfig({
   themeConfig: {
     siteTitle: 'Apex SDK',
     nav: [
-      { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'Contracts', link: '/contracts/overview' },
+      { text: 'API', link: '/reference/sdk-api' },
       { text: 'Examples', link: '/examples/quoting' },
-      { text: 'API', link: '/reference/sdk-api' }
+      { text: 'Guide', link: '/guide/getting-started' },
+      { text: 'Contracts', link: '/contracts/overview' }
     ],
     sidebar: [
+      {
+        text: 'API Reference',
+        items: [
+          { text: 'Overview', link: '/reference/sdk-api' },
+          { text: 'Config and Types', link: '/reference/config-types' },
+          { text: 'CL Pools', link: '/reference/cl-pools' },
+          { text: 'Classic Pools', link: '/reference/classic-pools' },
+          { text: 'Routes and Quotes', link: '/reference/routes-quotes' },
+          { text: 'SmartRouter', link: '/reference/smart-router' },
+          { text: 'Farming', link: '/reference/farming' },
+          { text: 'ApexVault', link: '/reference/apex-vault' },
+          { text: 'ABI Exports', link: '/reference/abis' }
+        ]
+      },
       {
         text: 'Guide',
         items: [
@@ -25,16 +39,7 @@ export default defineConfig({
       {
         text: 'Contracts',
         items: [
-          { text: 'DEX Structure', link: '/contracts/overview' },
-          {
-            text: 'Pools',
-            items: [
-              { text: 'Classic Pools', link: '/contracts/classic-pools' },
-              { text: 'CL Pools', link: '/contracts/cl-pools' }
-            ]
-          },
-          { text: 'Farming', link: '/contracts/farming' },
-          { text: 'ApexVault', link: '/contracts/apex-vault' }
+          { text: 'Contract Map', link: '/contracts/overview' }
         ]
       },
       {
@@ -44,13 +49,6 @@ export default defineConfig({
           { text: 'Swaps', link: '/examples/swaps' },
           { text: 'Farming', link: '/examples/farming' },
           { text: 'ApexVault', link: '/examples/apex-vault' }
-        ]
-      },
-      {
-        text: 'Reference',
-        items: [
-          { text: 'SDK API', link: '/reference/sdk-api' },
-          { text: 'ABI Exports', link: '/reference/abis' }
         ]
       }
     ],

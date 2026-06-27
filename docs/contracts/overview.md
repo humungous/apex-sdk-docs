@@ -30,12 +30,12 @@ See [Classic Pools](./classic-pools.md) for pair discovery, local quote inputs, 
 | --- | --- |
 | `CLFactory` | Creates CL pools and manages fee tiers |
 | `CLPoolDeployer` | Deploys CL pools at deterministic addresses |
-| `CLPool` | Pancake v3-style concentrated-liquidity pool |
+| `CLPool` | Concentrated-liquidity pool |
 | `LmPool` | Reward accounting sidecar for CL pool liquidity mining |
 | `LmPoolDeployer` | Deploys `LmPool` contracts |
 | `CLMasterChef` | Staked CL NFT rewards |
 
-See [CL Pools](./cl-pools.md) for deterministic pool addresses, CL position data, and Pancake v3-compatible SDK usage.
+See [CL Pools](./cl-pools.md) for deterministic pool addresses, CL position data, and SDK CL math usage.
 
 ## Periphery
 
@@ -65,7 +65,7 @@ Fee contracts are relevant for fee dashboards, accounting, and admin operations.
 | Area | Primary contracts | SDK surface |
 | --- | --- | --- |
 | [Classic Pools](./classic-pools.md) | `ClassicFactory`, `ClassicPool` | `computeClassicPoolAddress`, `quoteClassicExactInput`, Classic ABIs |
-| [CL Pools](./cl-pools.md) | `CLFactory`, `CLPool`, `NonfungiblePositionManager` | `computeCLPoolAddress`, Pancake v3 SDK re-exports, CL ABIs |
+| [CL Pools](./cl-pools.md) | `CLFactory`, `CLPool`, `NonfungiblePositionManager` | `computeCLPoolAddress`, CL math exports, CL ABIs |
 | [Farming](./farming.md) | `ClassicChef`, `CLMasterChef`, `LmPool` | `ClassicChef`, `CLMasterChef` |
 | [ApexVault](./apex-vault.md) | `ApexVault`, `VeApexToken` | `ApexVault`, `validateApexVaultUserConfig` |
 

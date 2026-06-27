@@ -1,6 +1,6 @@
 # CL Pools
 
-CL pools use concentrated liquidity with Pancake v3-compatible pool math and NFT positions. Each pool is defined by token pair and fee tier.
+CL pools use concentrated liquidity with NFT positions. Each pool is defined by token pair and fee tier.
 
 ## Contracts
 
@@ -42,7 +42,7 @@ CL quote and position math relies on current pool state:
 | fee tier | route selection or pool metadata |
 | token order | deterministic token sorting |
 
-Use the SDK's Pancake v3 re-exports for pool, route, trade, and position math so application calculations stay aligned with Apex CL contracts.
+Use the SDK's CL math exports for pool, route, trade, and position calculations.
 
 ## Position Management
 

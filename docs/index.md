@@ -1,4 +1,4 @@
-# Getting Started
+# Apex SDK
 
 Install the Apex SDK:
 
@@ -8,29 +8,18 @@ npm install @apex_labs/sdk
 
 Use Node 20 or newer for application and documentation tooling.
 
-## Protocol Surfaces
+## Primary API Areas
 
-Apex has two pool families:
+Start with the reference pages for the code surface:
 
-- **Classic pools**: pair-style AMMs with volatile and stable curves.
-- **CL pools**: concentrated-liquidity pools using Pancake v3-compatible math and periphery shapes.
-
-Apex also includes dedicated reward contracts:
-
-- **Classic farms**: pid-based LP staking through `ClassicChef`.
-- **CL farms**: NFT position staking through `CLMasterChef`.
-- **ApexVault**: veNFT reward configuration, claiming, compounding, and lock extension.
-
-## SDK Modules
-
-The package provides:
-
-- generated Apex contract ABIs
-- deterministic address helpers for Classic and CL pools
-- quote and path helpers for Classic, CL, and mixed routes
-- `SmartRouter` calldata builders for swap execution through `SmartRouter`
-- position and farm calldata builders for Classic LPs and CL NFTs
-- `ApexVault` calldata builders for ApexVault operations
+- [Config and Types](./reference/config-types.md)
+- [CL Pools](./reference/cl-pools.md)
+- [Classic Pools](./reference/classic-pools.md)
+- [Routes and Quotes](./reference/routes-quotes.md)
+- [SmartRouter](./reference/smart-router.md)
+- [Farming](./reference/farming.md)
+- [ApexVault](./reference/apex-vault.md)
+- [ABI Exports](./reference/abis.md)
 
 ## Minimal import
 
@@ -40,8 +29,8 @@ import {
   computeCLPoolAddress,
   computeClassicPoolAddress,
   quoteClassicExactInput,
-  apexCLPoolAbi,
-  apexClassicPairAbi,
+  clPoolAbi,
+  classicPoolAbi,
 } from '@apex_labs/sdk'
 ```
 
@@ -54,14 +43,10 @@ import {
 
 Keep deployment addresses in app config, not components. Staging, testnet, and production should each have their own config object.
 
-## Documentation
+## Supporting Guides
 
+- [SDK API reference](./reference/sdk-api.md)
 - [Configuration](./guide/configuration.md)
-- [DEX contract structure](./contracts/overview.md)
-- [Classic Pools](./contracts/classic-pools.md)
-- [CL Pools](./contracts/cl-pools.md)
-- [Farming](./contracts/farming.md)
-- [ApexVault](./contracts/apex-vault.md)
 - [Quoting examples](./examples/quoting.md)
 - [Swap examples](./examples/swaps.md)
-- [SDK API reference](./reference/sdk-api.md)
+- [Contract map](./contracts/overview.md)

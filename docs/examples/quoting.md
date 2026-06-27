@@ -56,7 +56,7 @@ Mixed routes support Classic and CL hops in one path.
 ```ts
 import {
   CLFeeAmount,
-  encodeMixedRouteToPancakeQuoteParams,
+  encodeMixedRouteToQuoteParams,
   mixedQuoterAbi,
 } from '@apex_labs/sdk'
 
@@ -74,7 +74,7 @@ const hops = [
   },
 ] as const
 
-const { path, flags } = encodeMixedRouteToPancakeQuoteParams(hops)
+const { path, flags } = encodeMixedRouteToQuoteParams(hops)
 
 const quote = await publicClient.readContract({
   address: apex.mixedQuoter,
@@ -89,5 +89,5 @@ const quote = await publicClient.readContract({
 | Route | Quote with |
 | --- | --- |
 | Classic only | local reserves + `quoteClassicExactInput` |
-| CL only | `QuoterV2`, Pancake SDK route math, or indexed data |
+| CL only | `QuoterV2`, SDK CL route math, or indexed data |
 | Classic + CL | `MixedQuoter` |
