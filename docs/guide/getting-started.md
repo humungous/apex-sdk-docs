@@ -20,7 +20,8 @@ The SDK gives frontend code four things:
 - exact contract ABIs generated from Apex contracts
 - address helpers for Classic and CL pools
 - quote/path helpers for Classic, CL, and mixed routes
-- calldata builders for swaps, LP actions, farming, and vault actions
+- SmartRouter calldata builders for user-facing swaps
+- calldata builders for LP actions, farming, and vault actions
 
 ## Minimal import
 
@@ -43,4 +44,3 @@ import {
 4. Send reads/writes through your wallet and RPC client.
 
 The SDK does not store deployed addresses for you. Keep deployment addresses in your app config so staging, testnet, and production can stay separate.
-

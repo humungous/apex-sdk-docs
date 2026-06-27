@@ -42,14 +42,14 @@ Frontend takeaway: CL liquidity is NFT-based. Use the SDK's re-exported Pancake 
 | Contract | What it does |
 | --- | --- |
 | `NonfungiblePositionManager` | Mint, modify, collect, and burn CL LP NFTs |
-| `SwapRouter` | CL-only swaps |
+| `SwapRouter` | Low-level CL-only swap router |
 | `SmartRouter` | Classic, CL, and mixed execution wrapper |
 | `Quoter` / `QuoterV2` | CL quote reads |
 | `MixedQuoter` | Exact-input quotes across Classic and CL hops |
 | `TickLens` | CL tick data reads |
 | `InterfaceMulticall` | Batched reads |
 
-Frontend takeaway: most swap UI should use `SmartRouter` calldata helpers. Use raw router calls only when you know exactly which protocol segment you are executing.
+Frontend takeaway: user-facing swap UI should default to `SmartRouter` and the SDK's `ApexSmartRouter` calldata helpers. Treat `SwapRouter` as a low-level CL-only periphery contract for specialized flows.
 
 ## Fees
 
@@ -64,7 +64,6 @@ Frontend takeaway: useful for fee dashboards and admin ops, not normal trading U
 
 1. UI builds a route from user input and available pools.
 2. UI quotes via local SDK math, `MixedQuoter`, `QuoterV2`, or indexed route data.
-3. UI builds calldata with `ApexSmartRouter` or CL `SwapRouter`.
-4. Wallet sends the transaction to `SmartRouter` or the chosen periphery contract.
+3. UI builds execution calldata with `ApexSmartRouter`.
+4. Wallet sends the transaction to `SmartRouter`.
 5. Pools update balances/liquidity; fees and rewards are accounted by the relevant pool/farm contracts.
-

@@ -39,7 +39,7 @@ This page lists the exports frontend developers usually need. Use TypeScript aut
 
 | Export | Purpose |
 | --- | --- |
-| `ApexSmartRouter` | Builds Classic, CL, stable, and mixed swap calldata |
+| `ApexSmartRouter` | Builds SmartRouter calldata for Classic, CL, stable, and mixed swaps |
 | `ApexSmartRouter.swapCallParameters` | Wrap custom router calls in one router multicall |
 | `ApexSmartRouter.mixedExactInputCallParameters` | Main helper for mixed exact-input user swaps |
 | `ApexSmartRouter.exactInputCallParameters` | CL exact-input segment |
@@ -63,7 +63,7 @@ The package re-exports the pinned Pancake v3 SDK fork used by Apex. Common expor
 - `Pool`
 - `Route`
 - `Trade`
-- `SwapRouter`
+- `SwapRouter` class from the pinned Pancake v3 SDK, for advanced CL-only calldata building
 - `NonfungiblePositionManager`
 - `SwapQuoter`
 - `TickMath`
@@ -71,4 +71,3 @@ The package re-exports the pinned Pancake v3 SDK fork used by Apex. Common expor
 - `encodeSqrtRatioX96`
 
 Use these for CL math and LP position building so frontend math matches Apex CL contracts.
-

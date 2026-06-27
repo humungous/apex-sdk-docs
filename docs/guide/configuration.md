@@ -30,7 +30,7 @@ export const apex: ApexDeploymentConfig = {
 | `chainId` | Token objects, route construction, and client checks |
 | `clFactory` | Finding and validating CL pools |
 | `clPoolDeployer` | Deterministic CL pool address calculation |
-| `clSwapRouter` | CL-only swap calldata |
+| `clSwapRouter` | Low-level CL-only router address; most user swap flows should use `smartRouter` |
 | `clQuoter` | CL quote reads |
 | `clNonfungiblePositionManager` | CL LP NFT mint/increase/decrease/collect actions |
 | `clMasterChef` | Staked CL position rewards |
@@ -48,4 +48,3 @@ export const apex: ApexDeploymentConfig = {
 - Keep config in one module like `src/config/apex.ts`.
 - Treat address changes as deployments, not UI changes.
 - Validate chain ID before sending transactions.
-

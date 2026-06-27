@@ -2,7 +2,7 @@
 
 ## Mixed exact-input swap
 
-For user-facing swaps, prefer the call-parameter helpers. They wrap the swap in a `SmartRouter.multicall` with a deadline or previous blockhash.
+For user-facing swaps, use the `ApexSmartRouter` call-parameter helpers. They wrap the swap in a `SmartRouter.multicall` with a deadline or previous blockhash.
 
 ```ts
 import { ApexFeeAmount, ApexSmartRouter } from '@apex_labs/sdk'
@@ -59,7 +59,7 @@ const { calldata } = ApexSmartRouter.classicExactInputCallParameters(
 )
 ```
 
-## CL route segment
+## CL route segment through SmartRouter
 
 ```ts
 const { calldata } = ApexSmartRouter.exactInputCallParameters(
