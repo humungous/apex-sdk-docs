@@ -2,6 +2,8 @@
 
 Apex combines Classic AMM pools, concentrated-liquidity pools, unified swap routing, farm contracts, and ApexVault reward management.
 
+For live addresses, see [Deployed Contracts](./index.md).
+
 ## Control plane
 
 | Contract | What it does |

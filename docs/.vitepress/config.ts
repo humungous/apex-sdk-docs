@@ -11,7 +11,7 @@ export default defineConfig({
       { text: 'API', link: '/reference/sdk-api' },
       { text: 'Examples', link: '/examples/quoting' },
       { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'Contracts', link: '/contracts/overview' }
+      { text: 'Contracts', link: '/contracts/' }
     ],
     sidebar: [
       {
@@ -39,6 +39,7 @@ export default defineConfig({
       {
         text: 'Contracts',
         items: [
+          { text: 'Deployed Contracts', link: '/contracts/' },
           { text: 'Contract Map', link: '/contracts/overview' }
         ]
       },

@@ -7,24 +7,36 @@ Deployment addresses for one chain.
 ```ts
 interface ApexDeploymentConfig {
   chainId: number
+  apexToken?: Address
+  apexController?: Address
+  emissionCenter?: Address
   clFactory: Address
   clPoolDeployer: Address
   clInitCodeHash?: Hash
   clSwapRouter?: Address
   clQuoter?: Address
+  quoterV2?: Address
   clNonfungiblePositionManager?: Address
   clMasterChef?: Address
+  lmPoolDeployer?: Address
+  positionDescriptor?: Address
   smartRouter?: Address
   mixedQuoter?: Address
+  tickLens?: Address
+  interfaceMulticall?: Address
   classicFactory?: Address
   classicChef?: Address
   classicPairInitCodeHash?: Hash
   classicRouter?: Address
+  veApexToken?: Address
+  apexVault?: Address
+  feeCenter?: Address
+  feeReceiverImplementation?: Address
   weth?: Address
 }
 ```
 
-Keep one config object per chain. Use it as the source for pool address helpers, contract reads, and transaction targets.
+Keep one config object per chain. Use it as the source for pool address helpers, contract reads, and transaction targets. Published configs are listed in [Deployed Contracts](../contracts/index.md).
 
 ## `BigintIsh`
 
