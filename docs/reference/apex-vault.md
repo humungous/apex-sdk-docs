@@ -51,6 +51,48 @@ function getApexVaultCompoundBucket(veNFT: Address): Address
 
 Returns the compound bucket sentinel address for a veNFT.
 
+## `getUserStakedApexVaultNFTs(params)`
+
+```ts
+function getUserStakedApexVaultNFTs(params: {
+  client: {
+    getLogs(params: {
+      address: Address
+      event: unknown
+      args: { owner: Address }
+      fromBlock: bigint
+      toBlock?: bigint | 'latest'
+    }): Promise<readonly unknown[]>
+    readContract(params: {
+      address: Address
+      abi: readonly unknown[]
+      functionName: string
+      args?: readonly unknown[]
+    }): Promise<unknown>
+  }
+  vault: Address
+  owner: Address
+  fromBlock: bigint
+  toBlock?: bigint | 'latest'
+  activeOnly?: boolean
+}): Promise<bigint[]>
+```
+
+Returns the user's currently staked ApexVault veNFT token IDs.
+
+```ts
+const tokenIds = await getUserStakedApexVaultNFTs({
+  client: publicClient,
+  vault: apex.apexVault,
+  owner: account,
+  fromBlock: apexVaultDeploymentBlock,
+})
+```
+
+The vault takes custody of a veNFT when it is staked, so wallet ERC-721 ownership alone is not enough to list staked positions. This helper reads the user's `Staked` logs and verifies each token ID against `positionOwner(tokenId)`, so unstaked positions are excluded. Set `activeOnly: true` to hide staked positions that are still custodied but inactive for rewards.
+
+Use the ApexVault `stake` path, not a raw `safeTransferFrom` to the vault. Raw transfers do not emit ApexVault `Staked` accounting and will not be returned by this helper.
+
 ## `ApexVault.stakeCallParameters(tokenId, config)`
 
 ```ts

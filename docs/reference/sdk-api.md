@@ -5,7 +5,7 @@ The Apex SDK exports typed helpers for addresses, quoting, calldata generation, 
 ## Install
 
 ```bash
-npm install @apex_labs/sdk@0.2.0
+npm install @apex_labs/sdk@latest
 ```
 
 ## Reference
@@ -18,7 +18,7 @@ npm install @apex_labs/sdk@0.2.0
 | [Routes and Quotes](./routes-quotes.md) | Mixed Classic/CL paths, quote path encoding, protocol fee packing |
 | [SmartRouter](./smart-router.md) | Swap calldata builders, multicall wrapping, refund and cleanup behavior |
 | [Farming](./farming.md) | ClassicChef and CLMasterChef calldata helpers |
-| [ApexVault](./apex-vault.md) | veNFT config validation and ApexVault calldata helpers |
+| [ApexVault](./apex-vault.md) | veNFT config validation, staked veNFT discovery, and ApexVault calldata helpers |
 | [ABI Exports](./abis.md) | Contract ABI exports for reads and custom writes |
 
 ## Low-level CL Math Exports
