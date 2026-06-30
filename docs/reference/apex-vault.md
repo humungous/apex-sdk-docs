@@ -56,13 +56,6 @@ Returns the compound bucket sentinel address for a veNFT.
 ```ts
 function getUserStakedApexVaultNFTs(params: {
   client: {
-    getLogs(params: {
-      address: Address
-      event: unknown
-      args: { owner: Address }
-      fromBlock: bigint
-      toBlock?: bigint | 'latest'
-    }): Promise<readonly unknown[]>
     readContract(params: {
       address: Address
       abi: readonly unknown[]
@@ -72,26 +65,36 @@ function getUserStakedApexVaultNFTs(params: {
   }
   vault: Address
   owner: Address
-  fromBlock: bigint
-  toBlock?: bigint | 'latest'
+  startIndex?: BigintIsh
+  count?: BigintIsh
   activeOnly?: boolean
-}): Promise<bigint[]>
+}): Promise<{
+  tokenIds: bigint[]
+  nextIndex: bigint
+  totalCustodied: bigint
+  done: boolean
+}>
 ```
 
 Returns the user's currently staked ApexVault veNFT token IDs.
 
 ```ts
-const tokenIds = await getUserStakedApexVaultNFTs({
+const page = await getUserStakedApexVaultNFTs({
   client: publicClient,
   vault: apex.apexVault,
   owner: account,
-  fromBlock: apexVaultDeploymentBlock,
+  startIndex: 0n,
+  count: 100n,
 })
+
+const tokenIds = page.tokenIds
 ```
 
-The vault takes custody of a veNFT when it is staked, so wallet ERC-721 ownership alone is not enough to list staked positions. This helper reads the user's `Staked` logs and verifies each token ID against `positionOwner(tokenId)`, so unstaked positions are excluded. Set `activeOnly: true` to hide staked positions that are still custodied but inactive for rewards.
+The vault takes custody of a veNFT when it is staked, so wallet ERC-721 ownership alone is not enough to list staked positions. This helper is a current-state read: it pages through veNFTs owned by the vault with `VeApexToken.tokenOfOwnerByIndex(vault, index)` and filters each token ID against `ApexVault.positionOwner(tokenId)`, so unstaked positions are excluded.
 
-Use the ApexVault `stake` path, not a raw `safeTransferFrom` to the vault. Raw transfers do not emit ApexVault `Staked` accounting and will not be returned by this helper.
+Set `activeOnly: true` to hide staked positions that are still custodied but inactive for rewards. If `done` is false, call again with `startIndex: nextIndex`.
+
+Use the ApexVault `stake` path, not a raw `safeTransferFrom` to the vault. Raw transfers do not create ApexVault position accounting and will not be returned by this helper.
 
 ## `ApexVault.stakeCallParameters(tokenId, config)`
 
