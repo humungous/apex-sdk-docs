@@ -65,34 +65,23 @@ function getUserStakedApexVaultNFTs(params: {
   }
   vault: Address
   owner: Address
-  startIndex?: BigintIsh
-  count?: BigintIsh
   activeOnly?: boolean
-}): Promise<{
-  tokenIds: bigint[]
-  nextIndex: bigint
-  totalCustodied: bigint
-  done: boolean
-}>
+}): Promise<bigint[]>
 ```
 
 Returns the user's currently staked ApexVault veNFT token IDs.
 
 ```ts
-const page = await getUserStakedApexVaultNFTs({
+const tokenIds = await getUserStakedApexVaultNFTs({
   client: publicClient,
   vault: apex.apexVault,
   owner: account,
-  startIndex: 0n,
-  count: 100n,
 })
-
-const tokenIds = page.tokenIds
 ```
 
-The vault takes custody of a veNFT when it is staked, so wallet ERC-721 ownership alone is not enough to list staked positions. This helper is a current-state read: it pages through veNFTs owned by the vault with `VeApexToken.tokenOfOwnerByIndex(vault, index)` and filters each token ID against `ApexVault.positionOwner(tokenId)`, so unstaked positions are excluded.
+The vault takes custody of a veNFT when it is staked, so wallet ERC-721 ownership alone is not enough to list staked positions. This helper is a current-state read: it scans veNFTs owned by the vault with `VeApexToken.tokenOfOwnerByIndex(vault, index)` and filters each token ID against `ApexVault.positionOwner(tokenId)`, so unstaked positions are excluded.
 
-Set `activeOnly: true` to hide staked positions that are still custodied but inactive for rewards. If `done` is false, call again with `startIndex: nextIndex`.
+Set `activeOnly: true` to hide staked positions that are still custodied but inactive for rewards.
 
 Use the ApexVault `stake` path, not a raw `safeTransferFrom` to the vault. Raw transfers do not create ApexVault position accounting and will not be returned by this helper.
 
