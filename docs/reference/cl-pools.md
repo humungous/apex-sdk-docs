@@ -79,6 +79,55 @@ const pool = computeCLPoolAddress({
 
 Use `clPoolDeployer`, not only `clFactory`, for address calculation.
 
+## `getCLPoolStatus(params)`
+
+```ts
+type CLPoolStatus =
+  | 'UNSUPPORTED_FEE'
+  | 'NOT_CREATED'
+  | 'NOT_INITIALIZED'
+  | 'READY'
+
+function getCLPoolStatus(params: {
+  client: {
+    readContract(params: {
+      address: Address
+      abi: readonly unknown[]
+      functionName: string
+      args?: readonly unknown[]
+    }): Promise<unknown>
+  }
+  config: Pick<ApexDeploymentConfig, 'clFactory'>
+  tokenA: Token | Address
+  tokenB: Token | Address
+  fee: CLFeeAmount | number
+}): Promise<
+  | { status: 'UNSUPPORTED_FEE' }
+  | { status: 'NOT_CREATED' }
+  | { status: 'NOT_INITIALIZED'; pool: Address }
+  | { status: 'READY'; pool: Address }
+>
+```
+
+Reads the CL factory and pool state to decide what the UI should show next.
+
+```ts
+const result = await getCLPoolStatus({
+  client: publicClient,
+  config: apex,
+  tokenA: apex.weth,
+  tokenB: usdt0.address,
+  fee: CLFeeAmount.FEE_0_30,
+})
+
+if (result.status === 'UNSUPPORTED_FEE') showUnsupportedFee()
+if (result.status === 'NOT_CREATED') showCreatePool()
+if (result.status === 'NOT_INITIALIZED') showInitializePool(result.pool)
+if (result.status === 'READY') showAddLiquidity(result.pool)
+```
+
+For native pairs, pass the wrapped-native token address, such as WETH, not an ETH placeholder address. `getCLPoolStatus` uses `CLFactory.getPool(tokenA, tokenB, fee)` and then reads `slot0()` when a pool exists, so token addresses and fee values must match the on-chain pool exactly.
+
 ## `createCLPool(params)`
 
 ```ts
