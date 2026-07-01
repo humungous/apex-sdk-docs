@@ -11,6 +11,7 @@ import {
   classicFactoryAbi,
   classicChefAbi,
   classicPoolAbi,
+  classicRouterAbi,
   clFactoryAbi,
   clMasterChefAbi,
   clPoolAbi,
@@ -33,6 +34,7 @@ import {
 ABI names mirror contract names:
 
 - `ClassicFactory` -> `classicFactoryAbi`
+- `ClassicRouter` -> `classicRouterAbi`
 - `CLMasterChef` -> `clMasterChefAbi`
 - `NonfungiblePositionManager` -> `nonfungiblePositionManagerAbi`
 

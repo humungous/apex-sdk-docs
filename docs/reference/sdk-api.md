@@ -14,7 +14,7 @@ npm install @apex_labs/sdk@latest
 | --- | --- |
 | [Config and Types](./config-types.md) | Deployment config, shared bigint/call types |
 | [CL Pools](./cl-pools.md) | CL fee tiers, tick spacing, pool address calculation, CL pool objects |
-| [Classic Pools](./classic-pools.md) | Classic pair address calculation and local quote math |
+| [Classic Pools](./classic-pools.md) | Classic pair status, address calculation, quote math, and liquidity calldata |
 | [Routes and Quotes](./routes-quotes.md) | Mixed Classic/CL paths, quote path encoding, protocol fee packing |
 | [SmartRouter](./smart-router.md) | Swap calldata builders, multicall wrapping, refund and cleanup behavior |
 | [Farming](./farming.md) | ClassicChef and CLMasterChef calldata helpers |
