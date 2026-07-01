@@ -38,6 +38,15 @@ interface ApexDeploymentConfig {
 
 Keep one config object per chain. Use it as the source for pool address helpers, contract reads, and transaction targets. Published configs are listed in [Deployed Contracts](../contracts/index.md).
 
+The SDK exports the current MegaETH test deployment config:
+
+```ts
+import { apexDeployments, apexMegaEthTest } from '@apex_labs/sdk'
+
+apexMegaEthTest.classicRouter
+apexDeployments.megaEthTest
+```
+
 ## `BigintIsh`
 
 ```ts

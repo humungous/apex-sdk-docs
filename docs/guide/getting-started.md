@@ -35,9 +35,15 @@ import {
 
 ## Basic flow
 
-1. Create an `ApexDeploymentConfig` for the chain.
+1. Import `apexMegaEthTest` or create an `ApexDeploymentConfig` for the chain.
 2. Fetch pool, position, and reward state with `viem` or an indexed data layer.
 3. Use SDK helpers to compute addresses, quote, or encode calldata.
 4. Send reads and transactions through the app wallet and RPC clients.
 
-The SDK does not store deployed addresses for you. Keep deployment addresses in your app config so staging, testnet, and production can stay separate.
+```ts
+import { apexMegaEthTest } from '@apex_labs/sdk'
+
+export const apex = apexMegaEthTest
+```
+
+Keep custom deployment addresses in your app config so staging, testnet, and production can stay separate.
