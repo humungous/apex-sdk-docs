@@ -129,6 +129,9 @@ if (status.status === 'READY') showAddLiquidity(status.pool)
 
 Use `ClassicRouter` for Classic add/remove liquidity UX. Do not raw-transfer tokens to Classic pairs from the frontend. `addLiquidity` and `addLiquidityETH` create the pair if it does not exist, pull both assets atomically, and mint LP in one transaction.
 
+These helpers require a deployed `classicRouter` address in your chain config. `smartRouter`
+is for swaps/routes and does not add or remove Classic liquidity.
+
 ```ts
 const add = ClassicRouter.addLiquidityCallParameters({
   tokenA: apex.weth,

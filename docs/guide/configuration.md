@@ -25,6 +25,7 @@ export const apex: ApexDeploymentConfig = {
   interfaceMulticall: '0x...',
   classicFactory: '0x...',
   classicPairInitCodeHash: '0x...',
+  classicRouter: '0x...',
   classicChef: '0x...',
   veApexToken: '0x...',
   apexVault: '0x...',
@@ -59,6 +60,7 @@ Published deployment configs are listed in [Deployed Contracts](../contracts/ind
 | `interfaceMulticall` | Batched read calls |
 | `classicFactory` | Classic pair lookup and address calculation |
 | `classicPairInitCodeHash` | Deterministic Classic pair address calculation |
+| `classicRouter` | Optional Classic add/remove liquidity router, when deployed |
 | `classicChef` | Classic LP staking rewards |
 | `veApexToken` | Vote-escrow NFT lock actions |
 | `apexVault` | Staked veNFT reward config, claim, compound, and lock actions |

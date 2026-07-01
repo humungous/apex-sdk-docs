@@ -37,7 +37,10 @@ Coming soon.
 
 Implementation and proxy-admin addresses are intentionally omitted from SDK config. Apps should target proxy addresses for `ApexController`, `VeApexToken`, `ApexVault`, and `FeeCenter`.
 
-There is no separate Classic-only router in this deployment. Use `smartRouter` for Classic, CL, and mixed route execution.
+There is no separate Classic-only router in this deployment. Use `smartRouter` for Classic,
+CL, and mixed swap execution only. Classic add/remove liquidity is not handled by
+`smartRouter`; SDK `ClassicRouter` liquidity helpers require a deployed `classicRouter`
+address before they can be used.
 
 Factory-created `ClassicPool`, `CLPool`, `LmPool`, and FeeReceiver proxy instances are not singleton deployment addresses. Discover them from the relevant factory, chef, or fee-center reads/events.
 
