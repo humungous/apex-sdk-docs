@@ -54,13 +54,13 @@ Published deployment configs are listed in [Deployed Contracts](../contracts/ind
 | `clMasterChef` | Staked CL position rewards |
 | `lmPoolDeployer` | CL liquidity-mining pool discovery |
 | `positionDescriptor` | CL NFT metadata descriptor |
-| `smartRouter` | Classic, CL, and mixed route execution |
+| `smartRouter` | Classic, CL, and mixed swap execution |
 | `mixedQuoter` | Mixed Classic + CL exact-input quotes |
 | `tickLens` | CL initialized tick reads |
 | `interfaceMulticall` | Batched read calls |
 | `classicFactory` | Classic pair lookup and address calculation |
 | `classicPairInitCodeHash` | Deterministic Classic pair address calculation |
-| `classicRouter` | Optional Classic add/remove liquidity router, when deployed |
+| `classicRouter` | Classic create-pair, add-liquidity, and remove-liquidity flows |
 | `classicChef` | Classic LP staking rewards |
 | `veApexToken` | Vote-escrow NFT lock actions |
 | `apexVault` | Staked veNFT reward config, claim, compound, and lock actions |

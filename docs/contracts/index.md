@@ -17,6 +17,7 @@ Coming soon.
 | `emissionCenter` | EmissionCenter | [`0x49Ae020D977a0AEd99f83e60C91B5ee142FDe098`](https://megascan.com/address/0x49Ae020D977a0AEd99f83e60C91B5ee142FDe098) |
 | `classicFactory` | ClassicFactory | [`0x22193fF2C865f353301ae5e9a289a9E1245e7d75`](https://megascan.com/address/0x22193fF2C865f353301ae5e9a289a9E1245e7d75) |
 | `classicChef` | ClassicChef | [`0xF7622531Ce743D914bb219dbbd21e65B34E82d81`](https://megascan.com/address/0xF7622531Ce743D914bb219dbbd21e65B34E82d81) |
+| `classicRouter` | ClassicRouter | [`0x5f7d59951E5C99855fF8a8CF4ee4cA0fE79E2887`](https://megascan.com/address/0x5f7d59951E5C99855fF8a8CF4ee4cA0fE79E2887) |
 | `clPoolDeployer` | CLPoolDeployer | [`0xC5C795816392739Da59552D783c0990c58Dd5161`](https://megascan.com/address/0xC5C795816392739Da59552D783c0990c58Dd5161) |
 | `clFactory` | CLFactory | [`0x1bbDb6b2f1ba105d53848455BDEf161FdA0DDea5`](https://megascan.com/address/0x1bbDb6b2f1ba105d53848455BDEf161FdA0DDea5) |
 | `positionDescriptor` | SimplePositionDescriptor | [`0xa3919FD9A545303629664CA84B19b1eC218717c1`](https://megascan.com/address/0xa3919FD9A545303629664CA84B19b1eC218717c1) |
@@ -37,10 +38,8 @@ Coming soon.
 
 Implementation and proxy-admin addresses are intentionally omitted from SDK config. Apps should target proxy addresses for `ApexController`, `VeApexToken`, `ApexVault`, and `FeeCenter`.
 
-There is no separate Classic-only router in this deployment. Use `smartRouter` for Classic,
-CL, and mixed swap execution only. Classic add/remove liquidity is not handled by
-`smartRouter`; SDK `ClassicRouter` liquidity helpers require a deployed `classicRouter`
-address before they can be used.
+Use `smartRouter` for Classic, CL, and mixed swap execution. Use `classicRouter` for
+Classic create-pair, add-liquidity, and remove-liquidity flows.
 
 Factory-created `ClassicPool`, `CLPool`, `LmPool`, and FeeReceiver proxy instances are not singleton deployment addresses. Discover them from the relevant factory, chef, or fee-center reads/events.
 
@@ -57,6 +56,7 @@ export const apexMegaEthTest: ApexDeploymentConfig = {
   emissionCenter: '0x49Ae020D977a0AEd99f83e60C91B5ee142FDe098',
   classicFactory: '0x22193fF2C865f353301ae5e9a289a9E1245e7d75',
   classicChef: '0xF7622531Ce743D914bb219dbbd21e65B34E82d81',
+  classicRouter: '0x5f7d59951E5C99855fF8a8CF4ee4cA0fE79E2887',
   classicPairInitCodeHash:
     '0xf6b4be77658ce9f596d71610cf47612241d96a56c091415efa2ec2cdbc7c719c',
   clPoolDeployer: '0xC5C795816392739Da59552D783c0990c58Dd5161',
