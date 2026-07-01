@@ -128,6 +128,40 @@ if (result.status === 'READY') showAddLiquidity(result.pool)
 
 For native pairs, pass the wrapped-native token address, such as WETH, not an ETH placeholder address. `getCLPoolStatus` uses `CLFactory.getPool(tokenA, tokenB, fee)` and then reads `slot0()` when a pool exists, so token addresses and fee values must match the on-chain pool exactly.
 
+## `getUserCLWalletLiquidityPositions(params)`
+
+```ts
+function getUserCLWalletLiquidityPositions(params: {
+  client: {
+    readContract(params: {
+      address: Address
+      abi: readonly unknown[]
+      functionName: string
+      args?: readonly unknown[]
+    }): Promise<unknown>
+  }
+  config: Pick<ApexDeploymentConfig, 'clNonfungiblePositionManager'>
+  account: Address
+}): Promise<CLWalletLiquidityPosition[]>
+```
+
+Enumerates wallet-held CL position NFTs with
+`NonfungiblePositionManager.balanceOf(account)` and
+`tokenOfOwnerByIndex(account, index)`, then reads `positions(tokenId)` for each
+NFT. The result includes token addresses, fee tier, ticks, liquidity, fee-growth
+snapshots, and tokens owed.
+
+This helper only lists CL NFTs in the wallet. It does not include NFTs staked in
+`CLMasterChef`.
+
+```ts
+const clPositions = await getUserCLWalletLiquidityPositions({
+  client: publicClient,
+  config: apex,
+  account,
+})
+```
+
 ## `createCLPool(params)`
 
 ```ts

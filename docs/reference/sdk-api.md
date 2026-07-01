@@ -21,6 +21,10 @@ npm install @apex_labs/sdk@latest
 | [ApexVault](./apex-vault.md) | veNFT config validation, staked veNFT discovery, and ApexVault calldata helpers |
 | [ABI Exports](./abis.md) | Contract ABI exports for reads and custom writes |
 
+For wallet-held liquidity discovery across both pool families, use
+`getUserWalletLiquidityPositions({ client, config, account })`. It returns
+`{ classic, cl }` and excludes positions custodied by farm contracts.
+
 ## Low-level CL Math Exports
 
 The SDK also exports CL math and position-building classes. These are Apex SDK primitives; no external protocol knowledge is required to use them.

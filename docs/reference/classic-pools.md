@@ -125,6 +125,38 @@ if (status.status === 'NEEDS_LIQUIDITY') showAddFirstLiquidity(status.pool)
 if (status.status === 'READY') showAddLiquidity(status.pool)
 ```
 
+## `getUserClassicWalletLiquidityPositions(params)`
+
+```ts
+function getUserClassicWalletLiquidityPositions(params: {
+  client: {
+    readContract(params: {
+      address: Address
+      abi: readonly unknown[]
+      functionName: string
+      args?: readonly unknown[]
+    }): Promise<unknown>
+  }
+  config: Pick<ApexDeploymentConfig, 'classicFactory'>
+  account: Address
+}): Promise<ClassicWalletLiquidityPosition[]>
+```
+
+Scans `ClassicFactory.allPairs`, filters pairs where `balanceOf(account) > 0`,
+and returns wallet-held Classic LP positions with pair metadata, LP balance,
+reserves, total supply, fee, and pro-rata `amount0` / `amount1` estimates.
+
+This helper only lists LP tokens in the wallet. It does not include LP staked in
+`ClassicChef`.
+
+```ts
+const classicPositions = await getUserClassicWalletLiquidityPositions({
+  client: publicClient,
+  config: apex,
+  account,
+})
+```
+
 ## `ClassicRouter`
 
 Use `ClassicRouter` for Classic add/remove liquidity UX. Do not raw-transfer tokens to Classic pairs from the frontend. `addLiquidity` and `addLiquidityETH` create the pair if it does not exist, pull both assets atomically, and mint LP in one transaction.
