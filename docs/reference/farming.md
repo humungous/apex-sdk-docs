@@ -17,6 +17,21 @@ ClassicChef.depositCallParameters({
 
 Builds `ClassicChef.deposit(pid, amount)` calldata.
 
+### `depositForCallParameters(params)`
+
+```ts
+ClassicChef.depositForCallParameters({
+  pid: BigintIsh
+  amount: BigintIsh
+  account: Address
+}): CallParameters
+```
+
+Builds `ClassicChef.depositFor(pid, amount, account)` calldata. The LP tokens
+are pulled from `msg.sender`, but the farm balance and rewards are credited to
+`account`. This is the primitive used by `ClassicRouter` atomic add-and-stake
+flows.
+
 ### `withdrawCallParameters(params)`
 
 ```ts

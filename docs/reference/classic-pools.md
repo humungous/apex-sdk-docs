@@ -167,6 +167,40 @@ const addETH = ClassicRouter.addLiquidityETHCallParameters({
 })
 ```
 
+Deployments whose `ClassicRouter` is wired to `ClassicChef` also expose atomic
+add-and-stake helpers. These mint LP to the router and immediately stake it with
+`ClassicChef.depositFor(pid, liquidity, account)`, so the user receives a farm
+position instead of wallet LP. The pair must already be registered in
+`ClassicChef`; otherwise the transaction reverts.
+
+These selectors require the next `ClassicRouter` deployment that exposes
+`classicChef()`. Do not call them against an older router address.
+
+```ts
+const addAndStake = ClassicRouter.addLiquidityAndStakeCallParameters({
+  tokenA: apex.weth,
+  tokenB: usdt0.address,
+  stable: false,
+  amountADesired,
+  amountBDesired,
+  amountAMin,
+  amountBMin,
+  to: account,
+  deadline,
+})
+
+const addETHAndStake = ClassicRouter.addLiquidityETHAndStakeCallParameters({
+  token: usdt0.address,
+  stable: false,
+  amountTokenDesired,
+  amountETHDesired,
+  amountTokenMin,
+  amountETHMin,
+  to: account,
+  deadline,
+})
+```
+
 Remove paths are also router-only:
 
 ```ts
@@ -197,6 +231,8 @@ const removeETH = ClassicRouter.removeLiquidityETHCallParameters({
 | `ClassicRouter.createPairCallParameters(params)` | Encode explicit pair creation |
 | `ClassicRouter.addLiquidityCallParameters(params)` | Encode ERC20/ERC20 Classic LP minting |
 | `ClassicRouter.addLiquidityETHCallParameters(params)` | Encode ERC20/native Classic LP minting through WETH |
+| `ClassicRouter.addLiquidityAndStakeCallParameters(params)` | Encode ERC20/ERC20 Classic LP minting plus Chef stake |
+| `ClassicRouter.addLiquidityETHAndStakeCallParameters(params)` | Encode ERC20/native Classic LP minting plus Chef stake |
 | `ClassicRouter.removeLiquidityCallParameters(params)` | Encode ERC20/ERC20 Classic LP burn |
 | `ClassicRouter.removeLiquidityETHCallParameters(params)` | Encode ERC20/native Classic LP burn with WETH unwrap |
 

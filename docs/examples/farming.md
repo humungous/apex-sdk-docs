@@ -12,6 +12,12 @@ const stake = ClassicChef.depositCallParameters({
   amount,
 })
 
+const stakeFor = ClassicChef.depositForCallParameters({
+  pid,
+  amount,
+  account,
+})
+
 const claim = ClassicChef.harvestCallParameters({
   pid,
 })
